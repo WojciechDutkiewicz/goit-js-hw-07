@@ -1,7 +1,7 @@
 import { galleryItems } from './gallery-items.js';
-// Change code below this line
-const gallery = document.querySelector('ul.gallery');
-console.log(galleryItems);
+
+const gallery = document.querySelector('.gallery');
+
 for (const pic of galleryItems) {
   const item = `<div class="gallery__item">
   <a class="gallery__link" href="${pic.original}">
@@ -15,6 +15,7 @@ for (const pic of galleryItems) {
 </div>`;
   gallery.insertAdjacentHTML('beforeend', item);
 }
+
 const popUpPic = ev => {
   ev.preventDefault();
   const makePicBig = basicLightbox.create(`<img src="${ev.target.dataset.source}" >`, {
