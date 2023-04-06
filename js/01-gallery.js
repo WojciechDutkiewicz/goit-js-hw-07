@@ -15,16 +15,20 @@ for (const pic of galleryItems) {
 </div>`;
   gallery.insertAdjacentHTML('beforeend', item);
 }
-gallery.addEventListener('click', ev => {
+const popUpPic = ev => {
   ev.preventDefault();
-  if (ev.target.tagName !== 'IMG') return;
-  const popUpPic = basicLightbox.create(`<img src="${ev.target.dataset.source}">`);
-  popUpPic.show();
-});
+  const makePicBig = basicLightbox.create(`<img src="${ev.target.dataset.source}" >`, {
+    onShow: () => {
+      gallery.addEventListener('keydown', closePopUpPic);
+    },
+  });
+  makePicBig.show();
 
-gallery.addEventListener('keydown', ev => {
-  if (ev.key === 'Escape') {
-    // alert("test");
-    popUpPic.close();
+  function closePopUpPic(ev) {
+    if (ev.key === 'Escape') {
+      makePicBig.close();
+    }
   }
-});
+};
+
+gallery.addEventListener('click', popUpPic);
